@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VidaActiva</title>
+<style>
+:root{--bg:#f6faf7;--card:#fff;--tx:#17302a;--mut:#53695f;--pri:#0f8a5f;--acc:#ff7a1a;--bd:#d9e6de;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1a16;--card:#16261f;--tx:#e8f3ed;--mut:#9db5a9;--pri:#2fc58c;--bd:#27403560}}
+:root[data-theme="dark"]{--bg:#0e1a16;--card:#16261f;--tx:#e8f3ed;--mut:#9db5a9;--pri:#2fc58c;--bd:#274035}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6}
+header{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--bd);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:8px 5%}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.2rem;color:var(--pri);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;gap:4px}
+nav a{color:var(--tx);text-decoration:none;padding:6px 12px;border-radius:20px;font-size:.95rem}
+nav a:hover{background:var(--pri);color:#fff}
+section{padding:56px 5%;max-width:1100px;margin:auto}
+h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.1;margin:.2em 0}
+h2{font-size:1.8rem;color:var(--pri);margin:0 0 8px}
+p{color:var(--mut)}
+
+/* Estilo para la imagen de fondo desvanecida en la parte superior */
+.hero-wrapper {
+  position: relative;
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(246,250,247,0.3) 40%, var(--bg) 95%), url('Imagenes/Fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero{display:grid;gap:28px;align-items:center;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.hero-img{width:100%;height:100%;max-height:420px;object-fit:cover;border-radius:16px;display:block}
+.btn{display:inline-block;background:var(--acc);color:#fff;padding:12px 24px;border-radius:30px;text-decoration:none;font-weight:700;border:0;font-size:1rem;cursor:pointer;margin:6px 8px 6px 0}
+.btn.alt{background:transparent;color:var(--pri);border:2px solid var(--pri)}
+
+/* Clase de imagen estándar para las tarjetas */
+.img{width:100%;height:200px;object-fit:cover;display:block}
+
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;overflow:hidden}
+.card div{padding:14px 18px}
+.card h3{margin:0 0 4px}
+figure{margin:0}
+
+/* Leyenda de la galería centrada y estilizada */
+figcaption{font-size:.9rem;color:var(--tx);font-weight:600;padding:12px 8px;text-align:center}
+
+ul.ben{list-style:none;padding:0;display:grid;gap:10px}
+ul.ben li{background:var(--card);border-left:5px solid var(--pri);padding:10px 14px;border-radius:8px;color:var(--mut)}
+ul.ben b{color:var(--tx)}
+form{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:20px;display:grid;gap:12px;max-width:520px}
+input,textarea{padding:10px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit;width:100%}
+#msg{color:var(--pri);font-weight:600;margin:0}
+footer{background:var(--pri);color:#fff;text-align:center;padding:24px 5%;font-size:.9rem}
+footer p{color:#fff;margin:4px 0}
+
+/* Estilos para los cuadros de vídeo interactivos */
+.video-card-link{text-decoration:none;color:inherit;display:block;transition:transform 0.2s ease, box-shadow 0.2s ease;}
+.video-card-link:hover{transform:translateY(-4px);}
+.video-thumb{position:relative;overflow:hidden;border-bottom:1px solid var(--bd);}
+.video-thumb img{width:100%;height:180px;object-fit:cover;display:block;}
+.play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(23,48,42,0.85);color:#fff;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;padding-left:4px;box-shadow:0 4px 12px rgba(0,0,0,0.3);transition:background 0.2s ease;}
+.video-card-link:hover .play-btn{background:var(--acc);}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="run" viewBox="0 0 300 200"><rect width="300" height="200" fill="#bfe6ff"/><circle cx="250" cy="40" r="22" fill="#ffd54a"/><rect y="150" width="300" height="50" fill="#5fb878"/><g stroke="#17302a" stroke-width="9" stroke-linecap="round" fill="none"><circle cx="150" cy="60" r="14" fill="#ffb98a"/><path d="M150 76 L145 115 L120 145 M145 115 L172 140 L190 125 M147 88 L120 100 M147 88 L178 98"/></g></symbol>
+<symbol id="ball" viewBox="0 0 300 200"><rect width="300" height="200" fill="#4caf6a"/><g stroke="#fff" stroke-width="4" fill="none"><rect x="10" y="10" width="280" height="180"/><path d="M150 10 V190"/><circle cx="150" cy="100" r="35"/></g><circle cx="150" cy="100" r="22" fill="#fff" stroke="#17302a" stroke-width="3"/><path d="M150 88 l10 7 -4 12 h-12 l-4 -12z" fill="#17302a"/></symbol>
+<symbol id="swim" viewBox="0 0 300 200"><rect width="300" height="200" fill="#2a9df4"/><g stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"><path d="M0 120 q25 -18 50 0 t50 0 t50 0 t50 0 t50 0 t50 0"/><path d="M0 160 q25 -18 50 0 t50 0 t50 0 t50 0 t50 0 t50 0"/></g><circle cx="130" cy="105" r="15" fill="#ffb98a"/><path d="M140 100 q40 -50 80 -10" stroke="#ffb98a" stroke-width="10" fill="none" stroke-linecap="round"/><rect x="118" y="92" width="26" height="10" rx="5" fill="#17302a"/></symbol>
+<symbol id="bike" viewBox="0 0 300 200"><rect width="300" height="200" fill="#ffe3b8"/><rect y="160" width="300" height="40" fill="#8d8d8d"/><g stroke="#17302a" stroke-width="7" fill="none" stroke-linecap="round"><circle cx="95" cy="135" r="30"/><circle cx="215" cy="135" r="30"/><path d="M95 135 L140 95 L195 95 L215 135 M140 95 L155 135 L95 135 M190 95 L185 75 L205 75"/><circle cx="150" cy="55" r="12" fill="#ffb98a"/><path d="M150 67 L145 95 M148 78 L190 78"/></g></symbol>
+</defs>
+</svg>
+
+<header>
+  <a class="logo" href="#inicio" aria-label="VidaActiva">
+    <svg width="34" height="34" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#0f8a5f"/><path d="M8 24 L16 14 L22 22 L26 16 L33 26" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="29" cy="9" r="3.5" fill="#ff7a1a"/></svg>
+    VidaActiva
+  </a>
+  <nav>
+    <a href="#inicio">Inicio</a><a href="#nosotros">Quiénes somos</a><a href="#servicios">Actividades</a><a href="#galeria">Galería</a><a href="#videos">Vídeos</a><a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<!-- Contenedor superior con imagen de fondo desvanecida -->
+<div class="hero-wrapper">
+  <section id="inicio">
+    <div class="hero">
+      <div>
+        <h1>VidaActiva</h1>
+        <p style="font-size:1.2rem">«Muévete hoy, vive mejor mañana.» Descubre cómo el deporte transforma tu cuerpo, tu mente y tu comunidad.</p>
+        <a class="btn" href="#servicios">Conoce nuestras actividades</a>
+        <a class="btn alt" href="#contacto">Únete a la vida Saludable</a>
+      </div>
+      <img class="hero-img" src="Imagenes/Principal.jpg" alt="Deportista corriendo al aire libre">
+    </div>
+  </section>
+</div>
+
+<section id="nosotros">
+  <h2>Quiénes somos</h2>
+  <p>VidaActiva es un club deportivo ficticio creado para promover la práctica regular de actividad física. Nuestro propósito es que niños, jóvenes y adultos descubran el deporte como una herramienta para cuidar su salud, hacer amigos y aprender valores como el esfuerzo, el respeto y el trabajo en equipo. Nos dirigimos a todas las personas, sin importar su nivel o experiencia; no olvides calentar antes de ejercitarte y estirar al finalizar para evitar lesiones.</p>
+  <h3>Beneficios del deporte</h3>
+  <ul class="ben">
+    <li><b>Salud física:</b> La práctica regular de actividad física fortalece el sistema cardiovascular, optimiza el metabolismo y reduce notablemente el riesgo de enfermedades crónicas. Además, estimula la densidad mineral ósea y promueve el desarrollo de masa muscular para prevenir el deterioro articular a largo plazo. Como resultado directo, se modula la respuesta inmune e inflamatoria del cuerpo, incrementando la vitalidad y la longevidad general.</li>
+    <li><b>Salud mental:</b> El deporte o actividad fisica actúa como un modulador neuroquímico que libera endorfinas, dopamina y serotonina, mitigando la ansiedad y los síntomas depresivos. Asimismo, regula los niveles de cortisol producidos por el estrés e impulsa un descanso nocturno mucho más profundo y reparador. Esta constancia refuerza de forma progresiva la autoestima, la resiliencia emocional y la sensación de control sobre la vida diaria.</li>
+    <li><b>Valores y vida social:</b> El entorno deportivo inculca valores fundamentales como la disciplina, la perseverancia, la honestidad y el respeto mutuo entre competidores. En el ámbito de equipo, exige subordinar el ego individual en favor de la cooperación, desarrollando la empatía y la comunicación asertiva. Este espacio integrador rompe barreras sociales, previene el aislamiento y fortalece el tejido comunitario de manera duradera.</li>
+    <li><b>Rendimiento:</b> El ejercicio estimula la proteína BDNF en el cerebro, favoreciendo la plasticidad neuronal, la retención de memoria y el aprendizaje rápido. De igual forma, la mayor oxigenación de la corteza prefrontal incrementa la concentración sostenida y la agilidad en la toma de decisiones. Esto reduce significativamente la fatiga cognitiva, elevando la productividad y la eficacia tanto en el trabajo como en los estudios.</li>
+  </ul>
+</section>
+
+<section id="servicios">
+  <h2>Actividades para una vida saludable</h2>
+  <p>Antes de iniciar cualquier rutina de ejercicio, es importante escuchar a tu cuerpo y establecer objetivos realistas. Comienza con movimientos suaves y aumenta la intensidad de forma progresiva.</p>
+  <div class="grid">
+    <div class="card"><img class="img" src="Imagenes/Running.jpg" alt="Atletismo"/><div><h3>Salir a Caminar o trotar</h3><p>Caminar o trotar es una de las formas más accesibles y efectivas de mantenerse activo: mejora la circulación, fortalece el corazón y ayuda a despejar la mente. intenta caminar o trotar al menos 30 minutos al día en un parque o por tu barrio.</p></div></div>
+    <div class="card"><img class="img" src="Imagenes/yoga.jpg" alt="Yoga"/><div><h3>Yoga: equilibrio etre cuerpo y mente</h3><p>El yoga ayuda a mejorar la flexibilidad, la postura y la respiración, además de que es una gran herramienta para reducir el estres y mejorar la concentración.</p></div></div>
+    <div class="card"><img class="img" src="Imagenes/Natacion.jpg" alt="Natación"/><div><h3>Natación: ejercicio completo para el cuerpo</h3><p>Nadar es una exelente opción para fortalecer los músculos sin impacto en las articulaciones, además, mejora la resistencia cardiovascular y relaja la mente. </p></div></div>
+    <div class="card"><img class="img" src="Imagenes/Fuerza corporal.jpg" alt="Ejercicios de fuerza"/><div><h3>Ejercicios de fuerza con peso corporal</h3><p>Fortalecer los musculos es esencial para mantener la movilidad y prevenir lesiones, prueba ejercicios como sentadillas, flexiones de pecho y planchas; no ecesitas pesas, solo tu propio cuerpo y constancia.</p></div></div>
+    <div class="card"><img class="img" src="Imagenes/Baile.jpg" alt="Baile"/><div><h3>Bailar: una forma divertida de moverse</h3><p>El baile es una actividad que combina ejercicio aeróbico con diversión, ayudado a mejorar la coordiación, la resitencia y el estado de ánimo; ya sea en clases, con amigos o en casa, bailar es una exelente manera de mantenerse en forma. </p></div></div>
+    <div class="card"><img class="img" src="Imagenes/Respiracion.jpg" alt="Respiración y meditación"/><div><h3>Ejercicios de respiración y meditación</h3><p>No solo el cuerpo necesita ejercicio, también la mente, por eso, practicar respiración profunda y meditación ayuda a reducir el estrés, mejorar la concentración y fortalecer el bienestar emocional. Dedica unos minutos al día para respirar conscientemente y relajarte.  </p></div></div>
+  </div>
+</section>
+
+<section id="galeria">
+  <h2>Galería</h2>
+  <p>Momentos de la vida activa.</p>
+  <div class="grid">
+    <figure class="card">
+      <img class="img" src="Imagenes/Galeria/Carrera Matutina.jpg" alt="Carrera matutina al aire libre">
+      <figcaption>Carrera matutina al aire libre</figcaption>
+    </figure>
+    <figure class="card">
+      <img class="img" src="Imagenes/Galeria/Partido de futbol.jpg" alt="Partido en la cancha del club">
+      <figcaption>Partido en la cancha del club</figcaption>
+    </figure>
+    <figure class="card">
+      <img class="img" src="Imagenes/Galeria/Entrenamineto natacion.jpg" alt="Entrenamiento de natación">
+      <figcaption>Entrenamiento de natación</figcaption>
+    </figure>
+    <figure class="card">
+      <img class="img" src="Imagenes/Galeria/Paseo en Bicicleta.jpg" alt="Paseo en bicicleta">
+      <figcaption>Paseo en bicicleta</figcaption>
+    </figure>
+    <figure class="card">
+      <img class="img" src="Imagenes/Galeria/Entrenamiento gym.jpg" alt="Entrenamiento de fuerza">
+      <figcaption>Entrenamiento de fuerza</figcaption>
+    </figure>
+    <figure class="card">
+      <img class="img" src="Imagenes/Galeria/senderismo.jpg" alt="Paseo de Senderismo">
+      <figcaption>Paseo de Senderismo</figcaption>
+    </figure>
+    <figure class="card">
+      <img class="img" src="Imagenes/Galeria/estiramiento.jpg" alt="Jovenes haciendo estiramiento">
+      <figcaption>Jovenes haciendo estiramiento</figcaption>
+    </figure>
+    <figure class="card">
+      <img class="img" src="Imagenes/Galeria/respiracion.jpg" alt="Practicas de respiración">
+      <figcaption>Practicas de respiración</figcaption>
+    </figure>
+    <figure class="card">
+      <img class="img" src="Imagenes/Galeria/yoga.jpg" alt="Yoga al aire libre">
+      <figcaption>Yoga al aire libre</figcaption>
+    </figure>
+  </div>
+  <p style="font-size:.9rem">Fuente de las imágenes: ilustraciones añadidas por los autores del proyecto</p>
+</section>
+
+<section id="videos">
+  <h2>Vídeos Recomendados</h2>
+  <p>A continuación te dejamos unos videos para que te guies en como hacer las actividades recomendadas para mantener una vida saludable.</p>
+  <div class="grid">
+    <!-- Vídeo 1 -->
+    <a href="https://www.youtube.com/watch?v=inpok4MKVLM" target="_blank" rel="noopener noreferrer" class="video-card-link">
+      <div class="card">
+        <div class="video-thumb">
+          <img src="Imagenes/Videos Portada/Cardio Para Principiantes.jpg" alt="Rutina de Cardio">
+          <span class="play-btn">▶</span>
+        </div>
+        <div>
+          <h3>Rutina de Cardio para Principiantes</h3>
+          <p>Aprende ejercicios clave para comenzar tu rutina diaria de ejercicios aeróbicos sin riesgo de lesiones.</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Vídeo 2 -->
+    <a href="https://www.youtube.com/watch?v=v7SN-d4qXx0" target="_blank" rel="noopener noreferrer" class="video-card-link">
+      <div class="card">
+        <div class="video-thumb">
+          <img src="Imagenes/Videos Portada/yoga y estiramiento.jpg" alt="Sesión de Yoga">
+          <span class="play-btn">▶</span>
+        </div>
+        <div>
+          <h3>Guía Básica de Yoga con Estiramientos</h3>
+          <p>Mejora tu postura, flexibilidad y reduce el estrés con esta sesión guiada paso a paso.</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Vídeo 3 -->
+    <a href="https://www.youtube.com/watch?v=gC_L9qAHVJ8" target="_blank" rel="noopener noreferrer" class="video-card-link">
+      <div class="card">
+        <div class="video-thumb">
+          <img src="Imagenes/Videos Portada/relajacion.jpg" alt="Ejercicios de Respiración">
+          <span class="play-btn">▶</span>
+        </div>
+        <div>
+          <h3>Técnicas de Relajación para hacer en casa</h3>
+          <p>Descubre cómo la diferentes formas de relajación contribuyen en un exelente bienestar mental y emocional</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Vídeo 4 -->
+    <a href="https://youtu.be/Y_r4gBnnpBI?si=ShRbX0LnCq9cxTDB" target="_blank" rel="noopener noreferrer" class="video-card-link">
+      <div class="card">
+        <div class="video-thumb">
+          <img src="Imagenes/Videos Portada/Respiración.jpg" alt="Ejercicios de Respiración">
+          <span class="play-btn">▶</span>
+        </div>
+        <div>
+          <h3>Técnicas de Respiración durante el ejercicio</h3>
+          <p>Descubre cómo la respiración consciente contribuye al bienestar mental y físico.</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Vídeo 5 -->
+    <a href="https://youtu.be/YcbFnIoZfp8?si=HM63_TSsRcA8P2hk" target="_blank" rel="noopener noreferrer" class="video-card-link">
+      <div class="card">
+        <div class="video-thumb">
+          <img src="Imagenes/Videos Portada/rutina.jpg" alt="Ejercicios de Respiración">
+          <span class="play-btn">▶</span>
+        </div>
+        <div>
+          <h3>Rutina de ejercicios basicos en casa</h3>
+          <p>Mejora tu bienestar fisico con una rutina simple para mantener tu cuerpo activo.</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Vídeo 6 -->
+    <a href="https://youtu.be/RtGwaCJEXOk?si=W85qagf4G69DFJKm" target="_blank" rel="noopener noreferrer" class="video-card-link">
+      <div class="card">
+        <div class="video-thumb">
+          <img src="Imagenes/Videos Portada/calentamiento.jpg" alt="Ejercicios de Respiración">
+          <span class="play-btn">▶</span>
+        </div>
+        <div>
+          <h3>Rutina de calentamiento para antes de entrenar</h3>
+          <p>Aprender ejercicios para un buen calentamiento y evita leciones durante tus actividades</p>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section id="contacto">
+  <h2>Contacto</h2>
+  <p>Si te interesa en saber mas actividades las cuales puedas practicar para mantener una buena vida saludable puedes dejarnos tus datos y te contactaremos.</p>
+  <form id="f">
+    <input id="n" placeholder="Tu nombre (ej.: Alex)" required>
+    <input id="c" type="email" placeholder="correo@ejemplo.com" required>
+    <textarea id="m" rows="3" placeholder="¿Qué deporte te interesa?" required></textarea>
+    <button class="btn" type="submit">Enviar mensaje</button>
+    <p id="msg" role="status"></p>
+  </form>
+</section>
+
+<footer>
+  <p><b>VidaActiva</b> · 2026</p>
+  <p>Proyecto académico elaborado por: Cando Blanca, Chasi Dayana, Lema Rosa, Llamatumbi Jacob, Vargas Mara</p>
+  <p>Uso de IA: se usó como apoyo para organizar ideas y la busqueda de información; el contenido fue revisado y adaptado por el estudiante.</p>
+  <p><a href="#inicio" style="color:#fff">↑ Volver al inicio</a></p>
+</footer>
+
+<script>
+document.getElementById('f').addEventListener('submit',function(e){
+  e.preventDefault();
+  document.getElementById('msg').textContent='¡Gracias, '+document.getElementById('n').value+'! Este es un formulario de demostración.';
+  e.target.reset();
+});
+</script>
+</body>
+</html>
